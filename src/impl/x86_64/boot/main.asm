@@ -17,7 +17,6 @@ start:
     lgdt [gdt64.pointer]
     jmp gdt64.code_segment:long_mode_start
 
-    
     hlt
 
 check_multiboot:

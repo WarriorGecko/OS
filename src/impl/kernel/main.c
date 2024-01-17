@@ -2,10 +2,21 @@
 #include "io.h"
 
 
-void keyboard_input(){
-    print_char(port_byte_in(0x60));
-    
+void keyboard_input() {
+    unsigned char key = port_byte_in(0x60);
+
+    if (!(key & 0x80)) {
+        char character = decode_scan_code(key & 0x7F);
+
+        if (character != '\0') {
+            print_char(character);
+        }
+
+        for (volatile int i = 0; i < 100000; i++) {
+        }
+    }
 }
+
 
 
 void kernel_main() {
@@ -15,6 +26,10 @@ void kernel_main() {
     print_newline();
     print_str("This OS is still in development");
     print_newline();
+    while (1){
+        keyboard_input();
+    }
+    
                 
 }
             

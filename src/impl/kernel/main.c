@@ -24,11 +24,11 @@ void keyboard_input() {
         
         
         if (character != prevChar){
-            for (volatile int i = 0; i < 55500000; i++) {
+            for (volatile int i = 0; i < 1500000; i++) {
             }
             prevChar = character;
         }else{
-            for (volatile int i = 0; i < 60000000; i++) {
+            for (volatile int i = 0; i < 10000000; i++) {
             }
         }
             

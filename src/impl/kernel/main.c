@@ -12,7 +12,7 @@ void keyboard_input() {
             print_char(character);
         }
 
-        for (volatile int i = 0; i < 100000; i++) {
+        for (volatile int i = 0; i < 50000000; i++) {
         }
     }
 }

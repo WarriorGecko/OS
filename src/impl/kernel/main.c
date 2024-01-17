@@ -3,17 +3,35 @@
 
 
 void keyboard_input() {
+
+    char prevChar;
     unsigned char key = port_byte_in(0x60);
 
     if (!(key & 0x80)) {
         char character = decode_scan_code(key & 0x7F);
 
-        if (character != '\0') {
-            print_char(character);
+        if (character == '\b'){
+            prev_char();
+            replace_char(' ');
+        } else{
+            if (character != '\0' ) {
+                print_char(character);
+            }
         }
+            
 
-        for (volatile int i = 0; i < 50000000; i++) {
+
+        
+        
+        if (character != prevChar){
+            for (volatile int i = 0; i < 55500000; i++) {
+            }
+            prevChar = character;
+        }else{
+            for (volatile int i = 0; i < 60000000; i++) {
+            }
         }
+            
     }
 }
 

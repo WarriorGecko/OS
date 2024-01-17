@@ -24,6 +24,24 @@ void clear_row(size_t row) {
     }
 }
 
+void prev_char(){
+    
+    if (col <= 0) {
+        row--;
+        col = NUM_COLS;
+    }
+    col--;
+}
+
+void replace_char(char character){
+    
+    buffer[col + NUM_COLS * row] = (struct Char) {
+        character: (uint8_t) character,
+        color: color,
+    };
+}
+
+
 void print_clear() {
     for (size_t i = 0; i < NUM_ROWS; i++) {
         clear_row(i);

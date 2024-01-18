@@ -1,39 +1,40 @@
 #include "print.h"
 #include "io.h"
-
+#include "keyboard.h"
 
 void keyboard_input() {
+    while(1){
 
-    char prevChar;
-    unsigned char key = port_byte_in(0x60);
+        unsigned char scan_code = port_byte_in(0x60);
+        char character = decode_scan_code(scan_code);
+        
+        if (scan_code & 0x80) {
 
-    if (!(key & 0x80)) {
-        char character = decode_scan_code(key & 0x7F);
-
-        if (character == '\b'){
-            prev_char();
-            replace_char(' ');
         } else{
-            if (character != '\0' ) {
-                print_char(character);
+            switch (character){
+                case '\b':
+                    prev_char();
+                    replace_char(' ');
+                    break;
+                case '\n':
+                    print_newline();
+                default:
+                    print_char(character);
+                    break;
+            }
+
+                
+            for (volatile int i = 0; i < 67000000; i++){
             }
         }
-            
-
 
         
         
-        if (character != prevChar){
-            for (volatile int i = 0; i < 1500000; i++) {
-            }
-            prevChar = character;
-        }else{
-            for (volatile int i = 0; i < 10000000; i++) {
-            }
-        }
-            
     }
+        
 }
+
+
 
 
 
@@ -44,9 +45,8 @@ void kernel_main() {
     print_newline();
     print_str("This OS is still in development");
     print_newline();
-    while (1){
-        keyboard_input();
-    }
+    keyboard_input();
+
     
                 
 }

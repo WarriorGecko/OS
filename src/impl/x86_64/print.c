@@ -13,6 +13,17 @@ size_t col = 0;
 size_t row = 0;
 uint8_t color = PRINT_COLOR_WHITE | PRINT_COLOR_BLACK << 4;
 
+void cursor(){
+    
+    buffer[col + NUM_COLS * row] = (struct Char) {
+        character: '_',
+        color: color,
+    };
+}
+
+
+
+
 void clear_row(size_t row) {
     struct Char empty = (struct Char) {
         character: ' ',
@@ -28,9 +39,15 @@ void prev_char(){
     
     if (col <= 0) {
         row--;
-        col = NUM_COLS;
+        for (col = NUM_COLS - 1; col >= 0; col--) {
+            if (buffer[col + NUM_COLS * row].character != ' ') {
+                break;
+            }
+        }
+    } else {
+        col--;
     }
-    col--;
+    
 }
 
 void replace_char(char character){

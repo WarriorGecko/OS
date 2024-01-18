@@ -17,16 +17,17 @@ void keyboard_input() {
                     replace_char(' ');
                     break;
                 case '\n':
-                    print_newline();
+                    print_char('\n');
                 default:
                     print_char(character);
                     break;
             }
-
+            
                 
             for (volatile int i = 0; i < 67000000; i++){
             }
         }
+        cursor();
 
         
         
@@ -46,7 +47,7 @@ void kernel_main() {
     print_str("This OS is still in development");
     print_newline();
     keyboard_input();
-
+    
     
                 
 }

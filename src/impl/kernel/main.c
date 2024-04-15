@@ -16,8 +16,6 @@ void keyboard_input() {
                     prev_char();
                     replace_char(' ');
                     break;
-                case '\n':
-                    print_char('\n');
                 default:
                     print_char(character);
                     break;
@@ -28,11 +26,7 @@ void keyboard_input() {
             }
         }
         cursor();
-
-        
-        
     }
-        
 }
 
 
@@ -42,13 +36,7 @@ void keyboard_input() {
 void kernel_main() {
     print_clear();
     print_set_color(PRINT_COLOR_GREEN, PRINT_COLOR_BLACK);
-    print_str("Welcome to Generation OS!");
-    print_newline();
-    print_str("This OS is still in development");
-    print_newline();
-    keyboard_input();
-    
-    
-                
+    print_char('//');
+    keyboard_input();      
 }
             

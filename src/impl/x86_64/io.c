@@ -20,13 +20,16 @@ void port_word_out(unsigned short port, unsigned short data) {
     __asm__ __volatile__("out %%ax, %%dx" : : "a"(data), "d"(port));
 }
 
+
+
 char decode_scan_code(unsigned char scan_code) {
+
     // Example mapping for a UK QWERTY keyboard
     static const char keyboard_map[128] = {
-        0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b', '\t', // 0-15
-        'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', 0, 'a', 's', // 16-31
-        'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`', 0, '\\', 'z', 'x', 'c', 'v', // 32-47
-        'b', 'n', 'm', ',', '.', '/', 0, '*', 0, ' ', // 48-57 and 58-61
+        0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b', // 0-14
+        '\t','q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', // 15-28
+        0, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`', 0, 
+        '\\', 'z', 'x', 'c', 'v','b', 'n', 'm', ',', '.', '/', 0, '*', 0, ' ', // 48-57 and 58-61
         0, // 62
         0, // 63
         0, // 64
@@ -78,12 +81,13 @@ char decode_scan_code(unsigned char scan_code) {
         0, // 126
         0  // 127
     };
-
-    // Check if the scan code is within the valid range
     if (scan_code < 128) {
-        // Lookup the corresponding character in the keyboard map
         return keyboard_map[scan_code];
+
     }
+        
+
+    
 
     // If the scan code is not in the map, return a null character
     return '\0';
